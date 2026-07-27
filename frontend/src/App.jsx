@@ -54,50 +54,53 @@ function App() {
   return (
     <div className="app">
       <h1>Study Assistant</h1>
+      <div className="input-row">
+        <textarea
+          placeholder="Paste your notes or type a topic..."
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={8}
+        />
 
-      <textarea
-        placeholder="Paste your notes or type a topic..."
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        rows={8}
-      />
+        <div className="input-sidebar">
+          <div className="mode-select">
+            <label>
+              <input
+                type="radio"
+                name="mode"
+                value="flashcards"
+                checked={mode === 'flashcards'}
+                onChange={(e) => {
+                  setMode(e.target.value);
+                  setStatus('idle');
+                  setData(null);
+                  setErrorMsg('');
+                }}
+              />
+              Flashcards
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="mode"
+                value="quiz"
+                checked={mode === 'quiz'}
+                onChange={(e) => {
+                  setMode(e.target.value);
+                  setStatus('idle');
+                  setData(null);
+                  setErrorMsg('');
+                }}
+              />
+              Quiz
+            </label>
+          </div>
 
-      <div className="mode-select">
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            value="flashcards"
-            checked={mode === 'flashcards'}
-            onChange={(e) => {
-              setMode(e.target.value);
-              setStatus('idle');
-              setData(null);
-              setErrorMsg('');
-            }}
-          />
-          Flashcards
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            value="quiz"
-            checked={mode === 'quiz'}
-            onChange={(e) => {
-              setMode(e.target.value);
-              setStatus('idle');
-              setData(null);
-              setErrorMsg('');
-            }}
-          />
-          Quiz
-        </label>
+          <button onClick={handleSubmit} disabled={!notes.trim() || status === 'loading'}>
+            {status === 'loading' ? 'Generating...' : 'Generate'}
+          </button>
+        </div>
       </div>
-
-      <button onClick={handleSubmit} disabled={!notes.trim() || status === 'loading'}>
-        {status === 'loading' ? 'Generating...' : 'Generate'}
-      </button>
 
       {status === 'loading' && (
         <div className="loading-box">

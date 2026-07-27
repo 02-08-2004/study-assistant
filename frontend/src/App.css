@@ -1,8 +1,11 @@
 :root {
-  --maroon: #850C35;
-  --rose: #E85C5C;
-  --blush: #FFC6C4;
-  --cream: #FFF5E4;
+  --milk-foam: #FAF6F1;
+  --vanilla-linen: #F2E6D8;
+  --blanched: #EADFD6;
+  --soft-peach: #F7D8CC;
+  --strawberry: #F6C7CF;
+  --cocoa: #5C4438;
+  --cocoa-light: #9C8175;
 }
 
 * {
@@ -16,13 +19,13 @@ body {
 }
 
 body {
-  background: linear-gradient(135deg, var(--cream) 0%, #fff 100%);
+  background: linear-gradient(135deg, var(--milk-foam) 0%, var(--vanilla-linen) 100%);
   min-height: 100vh;
   margin: 0;
 }
 
 .app {
-  max-width: 620px;
+  max-width: 680px;
   margin: 50px auto;
   padding: 32px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -30,12 +33,12 @@ body {
   word-wrap: break-word;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(133, 12, 53, 0.04), 0 12px 32px rgba(133, 12, 53, 0.10);
+  box-shadow: 0 4px 6px rgba(92, 68, 56, 0.04), 0 12px 32px rgba(92, 68, 56, 0.10);
 }
 
 h1 {
   text-align: center;
-  color: var(--maroon);
+  color: var(--cocoa);
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
@@ -47,9 +50,39 @@ h1::after {
   display: block;
   width: 48px;
   height: 4px;
-  background: linear-gradient(90deg, var(--maroon), var(--rose));
+  background: linear-gradient(90deg, var(--strawberry), var(--soft-peach));
   border-radius: 2px;
   margin: 12px auto 0;
+}
+
+.input-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  align-items: stretch;
+}
+
+.input-row textarea {
+  flex: 1;
+  margin-top: 0;
+}
+
+.input-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.input-sidebar .mode-select {
+  flex-direction: column;
+  margin: 0;
+}
+
+.input-sidebar button {
+  width: 100%;
 }
 
 textarea {
@@ -57,30 +90,29 @@ textarea {
   padding: 14px;
   font-size: 15px;
   box-sizing: border-box;
-  margin-top: 24px;
   resize: none;
   height: 160px;
-  border: 1.5px solid var(--blush);
+  border: 1.5px solid var(--blanched);
   border-radius: 10px;
   font-family: inherit;
-  color: #333;
+  color: var(--cocoa);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 textarea:focus {
   outline: none;
-  border-color: var(--rose);
-  box-shadow: 0 0 0 3px rgba(232, 92, 92, 0.15);
+  border-color: var(--strawberry);
+  box-shadow: 0 0 0 3px rgba(246, 199, 207, 0.35);
 }
 
 textarea::placeholder {
-  color: #c9a9a9;
+  color: var(--cocoa-light);
 }
 
 .mode-select {
   display: flex;
-  margin: 20px 0;
-  background: var(--cream);
+  margin: 0;
+  background: var(--vanilla-linen);
   border-radius: 12px;
   padding: 4px;
   gap: 4px;
@@ -93,7 +125,7 @@ textarea::placeholder {
   justify-content: center;
   padding: 10px;
   border-radius: 9px;
-  color: var(--maroon);
+  color: var(--cocoa);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -101,9 +133,9 @@ textarea::placeholder {
 }
 
 .mode-select label:has(input:checked) {
-  background: linear-gradient(135deg, var(--maroon), var(--rose));
-  color: white;
-  box-shadow: 0 3px 10px rgba(232, 92, 92, 0.3);
+  background: linear-gradient(135deg, var(--strawberry), var(--soft-peach));
+  color: var(--cocoa);
+  box-shadow: 0 3px 10px rgba(246, 199, 207, 0.6);
 }
 
 .mode-select input[type="radio"] {
@@ -117,15 +149,15 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--maroon), var(--rose));
-  color: white;
+  background: linear-gradient(135deg, var(--strawberry), var(--soft-peach));
+  color: var(--cocoa);
   transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
-  box-shadow: 0 4px 12px rgba(232, 92, 92, 0.28);
+  box-shadow: 0 4px 12px rgba(246, 199, 207, 0.5);
 }
 
 button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(232, 92, 92, 0.38);
+  box-shadow: 0 6px 16px rgba(246, 199, 207, 0.7);
 }
 
 button:active:not(:disabled) {
@@ -138,25 +170,19 @@ button:disabled {
   box-shadow: none;
 }
 
-.app>button {
-  display: block;
-  margin: 0 auto;
-}
-
 .error-box {
   margin-top: 20px;
   padding: 14px 16px;
-  background: #fff1f1;
-  border: 1px solid var(--blush);
+  background: var(--milk-foam);
+  border: 1px solid var(--soft-peach);
   border-radius: 10px;
-  color: var(--maroon);
+  color: var(--cocoa);
   text-align: center;
 }
 
 .error-box button {
   margin-top: 10px;
-  background: linear-gradient(135deg, var(--rose), #f08080);
-  box-shadow: 0 4px 12px rgba(232, 92, 92, 0.25);
+  background: linear-gradient(135deg, var(--soft-peach), var(--strawberry));
 }
 
 .loading-box {
@@ -165,14 +191,14 @@ button:disabled {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  color: #b98888;
+  color: var(--cocoa-light);
 }
 
 .spinner {
   width: 34px;
   height: 34px;
-  border: 3px solid var(--blush);
-  border-top-color: var(--rose);
+  border: 3px solid var(--blanched);
+  border-top-color: var(--strawberry);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -185,12 +211,13 @@ button:disabled {
 
 .debug-output {
   margin-top: 20px;
-  background: var(--cream);
+  background: var(--milk-foam);
   padding: 15px;
   text-align: left;
   overflow-x: auto;
   border-radius: 10px;
   font-size: 13px;
+  color: var(--cocoa);
 }
 
 /* Flashcards */
@@ -213,20 +240,20 @@ button:disabled {
 
 .flashcards h2 {
   text-align: center;
-  color: var(--maroon);
+  color: var(--cocoa);
   font-size: 22px;
   margin-bottom: 4px;
 }
 
 .progress {
   text-align: center;
-  color: #c99a9a;
+  color: var(--cocoa-light);
   font-size: 13px;
   margin-bottom: 16px;
 }
 
 .card {
-  border: 1.5px solid var(--blush);
+  border: 1.5px solid var(--blanched);
   border-radius: 14px;
   padding: 44px 24px;
   min-height: 100px;
@@ -236,25 +263,25 @@ button:disabled {
   justify-content: center;
   cursor: pointer;
   font-size: 18px;
-  color: var(--maroon);
+  color: var(--cocoa);
   text-align: center;
   user-select: none;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  background: linear-gradient(145deg, var(--cream), #fff);
-  box-shadow: 0 2px 8px rgba(232, 92, 92, 0.08);
+  background: linear-gradient(145deg, var(--milk-foam), #fff);
+  box-shadow: 0 2px 8px rgba(246, 199, 207, 0.3);
   transition: box-shadow 0.2s, transform 0.15s;
 }
 
 .card:hover {
-  box-shadow: 0 6px 20px rgba(232, 92, 92, 0.18);
+  box-shadow: 0 6px 20px rgba(246, 199, 207, 0.5);
   transform: translateY(-2px);
 }
 
 .card .hint {
   margin-top: 18px;
   font-size: 12px;
-  color: #d1a8a8;
+  color: var(--cocoa-light);
 }
 
 .card-controls {
@@ -266,13 +293,13 @@ button:disabled {
 
 .card-controls button {
   background: white;
-  color: var(--rose);
-  border: 1.5px solid var(--blush);
+  color: var(--cocoa);
+  border: 1.5px solid var(--blanched);
   box-shadow: none;
 }
 
 .card-controls button:hover:not(:disabled) {
-  background: var(--cream);
+  background: var(--milk-foam);
   box-shadow: none;
 }
 
@@ -285,14 +312,14 @@ button:disabled {
 
 .quiz h2 {
   text-align: center;
-  color: var(--maroon);
+  color: var(--cocoa);
   font-size: 22px;
 }
 
 .question-text {
   font-size: 17px;
   font-weight: 600;
-  color: var(--maroon);
+  color: var(--cocoa);
   margin: 16px 0;
 }
 
@@ -305,20 +332,20 @@ button:disabled {
 .option {
   padding: 13px 16px;
   text-align: left;
-  border: 1.5px solid var(--blush);
+  border: 1.5px solid var(--blanched);
   border-radius: 10px;
   background: white;
   cursor: pointer;
   font-size: 15px;
-  color: #333;
+  color: var(--cocoa);
   overflow-wrap: break-word;
   word-wrap: break-word;
   transition: background 0.15s, border-color 0.15s;
 }
 
 .option:hover:not(:disabled) {
-  background: var(--cream);
-  border-color: var(--rose);
+  background: var(--milk-foam);
+  border-color: var(--strawberry);
 }
 
 .option.correct {
@@ -329,8 +356,13 @@ button:disabled {
 
 .option.incorrect {
   background: #fdecea;
-  border-color: var(--rose);
-  color: var(--maroon);
+  border-color: var(--strawberry);
+  color: #b0413f;
+}
+
+.option:disabled {
+  opacity: 1;
+  cursor: default;
 }
 
 .next-btn {
@@ -344,17 +376,17 @@ button:disabled {
 }
 
 .quiz-results h2 {
-  color: var(--maroon);
+  color: var(--cocoa);
 }
 
 .score {
   font-size: 19px;
   font-weight: 700;
-  color: var(--rose);
+  color: var(--cocoa);
 }
 
 .quiz-results h3 {
-  color: var(--maroon);
+  color: var(--cocoa);
   margin-top: 20px;
 }
 
@@ -364,20 +396,20 @@ button:disabled {
 }
 
 .wrong-list li {
-  border: 1px solid var(--blush);
+  border: 1px solid var(--blanched);
   border-radius: 10px;
   padding: 14px;
   margin-bottom: 10px;
-  background: var(--cream);
+  background: var(--milk-foam);
 }
 
 .wrong-question {
   font-weight: 600;
-  color: var(--maroon);
+  color: var(--cocoa);
 }
 
 .your-answer {
-  color: var(--rose);
+  color: #b0413f;
   font-size: 14px;
 }
 
@@ -396,6 +428,14 @@ button:disabled {
 
   h1 {
     font-size: 26px;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .input-sidebar {
+    width: 100%;
   }
 
   textarea {
