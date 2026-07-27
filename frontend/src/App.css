@@ -58,9 +58,8 @@ textarea {
   font-size: 15px;
   box-sizing: border-box;
   margin-top: 24px;
-  resize: vertical;
-  min-height: 100px;
-  max-height: 250px;
+  resize: none;
+  height: 160px;
   border: 1.5px solid var(--blush);
   border-radius: 10px;
   font-family: inherit;
@@ -80,25 +79,35 @@ textarea::placeholder {
 
 .mode-select {
   display: flex;
-  gap: 24px;
-  margin: 18px 0;
-  justify-content: center;
+  margin: 20px 0;
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
 }
 
 .mode-select label {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 9px;
   color: var(--maroon);
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.mode-select label:has(input:checked) {
+  background: linear-gradient(135deg, var(--maroon), var(--rose));
+  color: white;
+  box-shadow: 0 3px 10px rgba(232, 92, 92, 0.3);
 }
 
 .mode-select input[type="radio"] {
-  accent-color: var(--rose);
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+  display: none;
 }
 
 button {
@@ -393,9 +402,9 @@ button:disabled {
     font-size: 16px;
   }
 
-  .mode-select {
-    gap: 16px;
-    font-size: 14px;
+  .mode-select label {
+    font-size: 13px;
+    padding: 9px;
   }
 
   .app>button {
