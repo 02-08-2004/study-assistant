@@ -5,19 +5,19 @@ const slides = [
         icon: '💬',
         iconBg: 'var(--strawberry)',
         title: 'Welcome to Study Assistant',
-        desc: 'Turn any notes or topic into flashcards and quizzes you can actually study with.'
+        desc: 'Turn any notes or topic into quizzes you can actually study with.'
     },
     {
         icon: '📝',
         iconBg: 'var(--soft-peach)',
         title: 'Paste anything, get a study set',
-        desc: 'Drop in messy notes or just name a topic — the AI builds cards and questions from it.'
+        desc: 'Drop in messy notes or just name a topic — the AI builds quiz questions from it.'
     },
     {
         icon: '✅',
         iconBg: '#BFE3C9',
         title: 'Retest what you got wrong',
-        desc: 'Flip through cards, take the quiz, and loop back on what tripped you up.'
+        desc: 'Take the quiz and loop back on questions that tripped you up.'
     }
 ];
 
