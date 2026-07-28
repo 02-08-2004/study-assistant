@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 import Flashcards from './Flashcards';
 import Quiz from './Quiz';
-import Onboarding from './Onboarding';
 import AmbientBackground from './AmbientBackground';
 import SplashScreen from './SplashScreen';
 import AIGreeting from './AIGreeting';
@@ -44,14 +43,7 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const [showOnboarding, setShowOnboarding] = useState(() => {
-    return !localStorage.getItem('study-assistant-onboarded');
-  });
 
-  const finishOnboarding = () => {
-    localStorage.setItem('study-assistant-onboarded', 'true');
-    setShowOnboarding(false);
-  };
 
   useEffect(() => {
     try {
@@ -235,11 +227,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {showOnboarding && !showSplash && (
-          <Onboarding onFinish={finishOnboarding} />
-        )}
-      </AnimatePresence>
+
 
       <AnimatePresence>
         {showClearModal && (
