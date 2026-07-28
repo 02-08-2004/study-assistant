@@ -36,6 +36,13 @@ function App() {
   const [historyOpen, setHistoryOpen] = useState(false);
 
   const requestId = useRef(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const [showOnboarding, setShowOnboarding] = useState(() => {
     return !localStorage.getItem('study-assistant-onboarded');
@@ -277,7 +284,7 @@ function App() {
       <div className="layout full-screen-layout">
         <motion.main 
           className="content full-stage"
-          animate={{ x: historyOpen ? 150 : 0 }}
+          animate={{ x: historyOpen && windowWidth > 640 ? Math.min(windowWidth * 0.15, 150) : 0 }}
           transition={{ type: 'spring', stiffness: 220, damping: 24 }}
         >
           <AnimatePresence mode="wait">
@@ -359,7 +366,7 @@ function App() {
                       placeholder='Paste your notes, or just name a topic — e.g. "Photosynthesis"...'
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      rows={9}
+                      rows={windowWidth <= 480 ? 5 : windowWidth <= 768 ? 6 : 9}
                     />
 
                     <motion.button
