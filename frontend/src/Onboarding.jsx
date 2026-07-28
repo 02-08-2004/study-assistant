@@ -1,21 +1,22 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const slides = [
     {
         icon: '💬',
-        iconBg: 'var(--strawberry)',
+        iconBg: '#D3968C',
         title: 'Welcome to Study Assistant',
-        desc: 'Turn any notes or topic into quizzes you can actually study with.'
+        desc: 'Turn any notes or topic into interactive flashcards or quizzes instantly.'
     },
     {
         icon: '📝',
-        iconBg: 'var(--soft-peach)',
+        iconBg: '#105666',
         title: 'Paste anything, get a study set',
-        desc: 'Drop in messy notes or just name a topic — the AI builds quiz questions from it.'
+        desc: 'Drop in messy notes or just name a topic — AI builds your study material.'
     },
     {
         icon: '✅',
-        iconBg: '#BFE3C9',
+        iconBg: '#839958',
         title: 'Retest what you got wrong',
         desc: 'Take the quiz and loop back on questions that tripped you up.'
     }
@@ -27,12 +28,23 @@ function Onboarding({ onFinish }) {
     const slide = slides[index];
 
     return (
-        <div className="onboarding-overlay">
-            <div className="onboarding-card">
+        <motion.div 
+            className="onboarding-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <motion.div 
+                className="onboarding-card glass-panel"
+                initial={{ scale: 0.85, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.85, opacity: 0, y: 20 }}
+                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+            >
                 <button className="onboarding-skip" onClick={onFinish}>Skip</button>
 
-                <div className="onboarding-icon-ring" style={{ background: `${slide.iconBg}33` }}>
-                    <div className="onboarding-icon-circle" style={{ background: slide.iconBg }}>
+                <div className="onboarding-icon-ring" style={{ background: `${slide.iconBg}22` }}>
+                    <div className="onboarding-icon-circle" style={{ background: slide.iconBg, color: '#ffffff' }}>
                         <span>{slide.icon}</span>
                     </div>
                 </div>
@@ -52,8 +64,8 @@ function Onboarding({ onFinish }) {
                 >
                     {isLast ? 'Get started' : 'Next'}
                 </button>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }
 

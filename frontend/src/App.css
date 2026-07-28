@@ -206,18 +206,17 @@ h1, h2, h3, h4, .brand, .history-title, .generate-btn, .new-btn, .ctrl-btn, .top
   50% { opacity: 0; }
 }
 
-/* Onboarding Overlay */
 .onboarding-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 51, 35, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(10, 51, 35, 0.45) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 100000 !important;
+  padding: 20px !important;
 }
 
 .onboarding-card {
