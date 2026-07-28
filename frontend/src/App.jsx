@@ -8,6 +8,7 @@ import SplashScreen from './SplashScreen';
 import AIGreeting from './AIGreeting';
 import ConfirmModal from './ConfirmModal';
 import HistorySheet from './HistorySheet';
+import LandingPage from './LandingPage';
 import Ripple from './Ripple';
 
 const STORAGE_KEY = 'study-assistant-sessions';
@@ -33,6 +34,7 @@ function App() {
   const [composerHighlight, setComposerHighlight] = useState(false);
   const [aiThinkingIdx, setAiThinkingIdx] = useState(0);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [viewMode, setViewMode] = useState('landing');
 
   const requestId = useRef(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -157,6 +159,7 @@ function App() {
     setStatus('success');
     setActiveId(session.id);
     setShowComposer(false);
+    setViewMode('app');
 
     const updated = sessions.map((s) => s.id === session.id ? { ...s, openedFromHistory: true } : s);
     saveSessions(updated);
@@ -203,6 +206,7 @@ function App() {
     setActiveId(null);
     setShowComposer(true);
     setComposerHighlight(true);
+    setViewMode('app');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => setComposerHighlight(false), 600);
@@ -249,7 +253,7 @@ function App() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       >
-        <div className="brand">
+        <div className="brand" onClick={() => setViewMode('landing')} style={{ cursor: 'pointer' }}>
           <motion.div 
             className="brand-mark"
             whileHover={{ rotate: 10, scale: 1.08 }}
@@ -259,14 +263,28 @@ function App() {
           </motion.div>
           <span>Study Assistant</span>
         </div>
-        <motion.button 
-          className="topbar-new-btn" 
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={handleNew}
-        >
-          + Create New Set
-        </motion.button>
+
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {viewMode === 'app' && (
+            <motion.button 
+              className="edit-notes-btn"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => setViewMode('landing')}
+            >
+              🏠 Home
+            </motion.button>
+          )}
+
+          <motion.button 
+            className="topbar-new-btn" 
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={handleNew}
+          >
+            {viewMode === 'landing' ? '🚀 Launch Workbench' : '+ Create New Set'}
+          </motion.button>
+        </div>
       </motion.header>
 
       <div className="layout full-screen-layout">
@@ -276,8 +294,16 @@ function App() {
           transition={{ type: 'spring', stiffness: 220, damping: 24 }}
         >
           <AnimatePresence mode="wait">
-            {/* COMPOSER MODE */}
-            {(showComposer || status === 'idle' || status === 'loading' || status === 'error') ? (
+            {viewMode === 'landing' ? (
+              <LandingPage 
+                key="landing-view"
+                onStart={() => setViewMode('app')}
+                onSelectSample={(topic) => {
+                  setNotes(topic);
+                  setViewMode('app');
+                }}
+              />
+            ) : (showComposer || status === 'idle' || status === 'loading' || status === 'error') ? (
               <motion.div 
                 key="composer-mode"
                 className="composer-hero-grid"
