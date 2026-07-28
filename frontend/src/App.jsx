@@ -5,6 +5,7 @@ import Flashcards from './Flashcards';
 import Quiz from './Quiz';
 import AmbientBackground from './AmbientBackground';
 import SplashScreen from './SplashScreen';
+import ConfirmModal from './ConfirmModal';
 import HistorySheet from './HistorySheet';
 import Ripple from './Ripple';
 
@@ -24,7 +25,15 @@ function App() {
   const [status, setStatus] = useState('idle');
   const [data, setData] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
-  const [sessions, setSessions] = useState([]);
+  const [sessions, setSessions] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.error('Failed to load saved sessions:', e);
+      return [];
+    }
+  });
   const [activeId, setActiveId] = useState(null);
   const [showComposer, setShowComposer] = useState(true);
   const [viewType, setViewType] = useState('flashcards');
@@ -39,17 +48,6 @@ function App() {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setSessions(JSON.parse(saved));
-    } catch (e) {
-      console.error('Failed to load saved sessions:', e);
-    }
   }, []);
 
   useEffect(() => {
@@ -81,8 +79,9 @@ function App() {
     setAiThinkingIdx(0);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || '';
-      const res = await fetch(`${API_URL}/api/generate`, {
+      const apiBase = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+      const endpoint = apiBase ? `${apiBase}/api/generate` : '/api/generate';
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ notes, mode })
@@ -188,10 +187,6 @@ function App() {
     setShowClearModal(false);
   };
 
-  const handleClearHistory = () => {
-    setShowClearModal(true);
-  };
-
   const handleNew = () => {
     setNotes('');
     setMode('flashcards');
@@ -224,6 +219,8 @@ function App() {
           <SplashScreen onFinish={() => setShowSplash(false)} />
         )}
       </AnimatePresence>
+
+
 
       <AnimatePresence>
         {showClearModal && (

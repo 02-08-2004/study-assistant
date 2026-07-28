@@ -14,6 +14,8 @@ const SYSTEM_PROMPT = `You are a study assistant that converts notes or topics i
 
 You must respond with ONLY valid JSON. No markdown code fences, no explanations, no text before or after the JSON.
 
+The user input is the source material. Use it directly as the subject for every generated card or question.
+
 IF REQUESTED MODE IS FLASHCARDS, return this exact JSON shape:
 {
   "type": "flashcards",
@@ -40,6 +42,8 @@ Rules:
 - Generate between 5 and 8 items.
 - If flashcards mode is requested, ONLY return flashcards.
 - If quiz mode is requested, ONLY return quiz.
+- Use the notes/topic text exactly as the basis for the output.
+- Keep the generated topic closely tied to the provided notes.
 - "correctIndex" must be a number from 0 to 3.
 - Do not wrap in markdown fences.
 - Return raw JSON only.`;

@@ -33,12 +33,14 @@ A high-density, SaaS-inspired interactive study application designed with modern
 ## 🚀 How to Run Locally
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org) (v18 or higher)
 - Free [Groq API Key](https://console.groq.com)
 
 ---
 
 ### Step 1: Clone Repository
+
 ```bash
 git clone https://github.com/02-08-2004/study-assistant.git
 cd study-assistant
@@ -47,33 +49,40 @@ cd study-assistant
 ---
 
 ### Step 2: Configure Backend
+
 ```bash
 cd backend
 npm install
 ```
 
 Create a `.env` file inside the `backend/` directory:
+
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 PORT=5000
 ```
 
 Start the backend server:
+
 ```bash
 npm run dev
 ```
-*(Runs on `http://localhost:5000`)*
+
+_(Runs on `http://localhost:5000`)_
 
 ---
 
 ### Step 3: Configure Frontend
+
 In a **new terminal tab**:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*(Runs on `http://localhost:5173`)*
+
+_(Runs on `http://localhost:5173`)_
 
 Open **http://localhost:5173** in your browser.
 
@@ -84,10 +93,13 @@ Open **http://localhost:5173** in your browser.
 The repository is pre-configured with `vercel.json` for 1-click monorepo deployment:
 
 ### 1-Click Vercel Import:
+
 1. Go to [vercel.com/new](https://vercel.com/new) and import `02-08-2004/study-assistant`.
 2. Add Environment Variable:
    - `GROQ_API_KEY`: `your_groq_api_key`
-3. Click **Deploy**. Both Frontend and Backend services build automatically under a single URL!
+3. Click **Deploy**. Both Frontend and Backend services build automatically under a single URL.
+
+If you deploy the frontend separately, set `VITE_API_URL` to your backend URL. If you use the Vercel monorepo setup from this repository, leaving `VITE_API_URL` unset will make the frontend call the same-origin `/api` route, which is the correct production behavior.
 
 ---
 

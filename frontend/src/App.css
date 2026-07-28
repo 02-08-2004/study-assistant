@@ -39,13 +39,13 @@ body {
 body {
   background: radial-gradient(circle at 50% 0%, #FFFDF9 0%, #F5F1DC 100%);
   min-height: 100vh;
-  font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   color: var(--dark-green);
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, .brand, .history-title, .generate-btn, .new-btn, .ctrl-btn, .topbar-new-btn, .edit-notes-btn {
-  font-family: 'Outfit', -apple-system, sans-serif;
+  font-family: inherit;
 }
 
 .page {
@@ -159,7 +159,7 @@ h1, h2, h3, h4, .brand, .history-title, .generate-btn, .new-btn, .ctrl-btn, .top
 }
 
 .ai-title-inline {
-  font-family: 'Outfit', sans-serif;
+  font-family: inherit;
   font-weight: 800;
   font-size: 13px;
   color: var(--dark-green);
@@ -238,7 +238,7 @@ h1, h2, h3, h4, .brand, .history-title, .generate-btn, .new-btn, .ctrl-btn, .top
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Outfit', sans-serif;
+  font-family: inherit;
   font-weight: 900;
   font-size: 38px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(211, 150, 140, 0.4);
@@ -1852,7 +1852,6 @@ textarea:focus {
   border: none;
   background: linear-gradient(135deg, var(--dark-green), var(--midnight-green));
   color: var(--beige);
-  font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 14px;
   cursor: pointer;
@@ -2058,7 +2057,6 @@ textarea:focus {
   background: linear-gradient(135deg, var(--dark-green), var(--midnight-green));
   color: var(--beige);
   border: none;
-  font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
@@ -2731,7 +2729,6 @@ textarea:focus {
   border-radius: 14px;
   background: linear-gradient(135deg, var(--dark-green), var(--midnight-green));
   color: var(--beige);
-  font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 15.5px;
   border: none;
@@ -2745,7 +2742,6 @@ textarea:focus {
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.85);
   color: var(--dark-green);
-  font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 15px;
   border: 1.5px solid var(--blanched);
