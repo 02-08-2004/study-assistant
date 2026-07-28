@@ -14,9 +14,7 @@ const SYSTEM_PROMPT = `You are a study assistant that converts notes or topics i
 
 You must respond with ONLY valid JSON. No markdown code fences, no explanations, no text before or after the JSON.
 
-Depending on what is requested, return one of these two exact shapes:
-
-For flashcards:
+IF REQUESTED MODE IS FLASHCARDS, return this exact JSON shape:
 {
   "type": "flashcards",
   "topic": "short topic name",
@@ -25,7 +23,7 @@ For flashcards:
   ]
 }
 
-For quiz:
+IF REQUESTED MODE IS QUIZ, return this exact JSON shape:
 {
   "type": "quiz",
   "topic": "short topic name",
@@ -40,12 +38,13 @@ For quiz:
 
 Rules:
 - Generate between 5 and 8 items.
-- "correctIndex" must be a number from 0 to 3, matching the index of the correct option.
-- Do not wrap the JSON in markdown fences (no \`\`\`json).
-- Do not include any text outside the JSON object.
-- Base the content strictly on the user's provided notes or topic.`;
+- If flashcards mode is requested, ONLY return flashcards.
+- If quiz mode is requested, ONLY return quiz.
+- "correctIndex" must be a number from 0 to 3.
+- Do not wrap in markdown fences.
+- Return raw JSON only.`;
 
-function parseAndValidate(rawText) {
+function parseAndValidate(rawText, expectedMode) {
   let cleaned = rawText.trim();
 
   if (cleaned.startsWith('```')) {
@@ -57,6 +56,10 @@ function parseAndValidate(rawText) {
     parsed = JSON.parse(cleaned);
   } catch (e) {
     return { valid: false, error: 'Model returned invalid JSON' };
+  }
+
+  if (expectedMode && parsed.type !== expectedMode) {
+    return { valid: false, error: `Expected type '${expectedMode}' but received '${parsed.type}'` };
   }
 
   if (parsed.type === 'flashcards') {
@@ -107,7 +110,7 @@ async function callGroq(userContent) {
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: userContent }
       ],
-      temperature: 0.5
+      temperature: 0.3
     })
   });
   const data = await response.json();
@@ -122,7 +125,11 @@ app.post('/api/generate', async (req, res) => {
   }
 
   try {
-    const userContent = `Mode: ${mode}\n\nNotes:\n${notes}`;
+    const modeInstruction = mode === 'flashcards' 
+      ? 'GENERATE FLASHCARDS ONLY. Return {"type": "flashcards", "topic": "...", "cards": [...]}.'
+      : 'GENERATE A QUIZ ONLY. Return {"type": "quiz", "topic": "...", "questions": [...]}.';
+      
+    const userContent = `REQUESTED MODE: ${mode.toUpperCase()}\nINSTRUCTION: ${modeInstruction}\n\nNotes/Topic:\n${notes}`;
     const MAX_ATTEMPTS = 3;
     let lastError = 'Unknown error';
 
@@ -135,10 +142,10 @@ app.post('/api/generate', async (req, res) => {
         continue;
       }
 
-      const result = parseAndValidate(rawText);
+      const result = parseAndValidate(rawText, mode);
 
       if (result.valid) {
-        console.log(`Attempt ${attempt}: success`);
+        console.log(`Attempt ${attempt}: success for mode ${mode}`);
         return res.json(result.data);
       }
 
