@@ -5,7 +5,6 @@ import Flashcards from './Flashcards';
 import Quiz from './Quiz';
 import AmbientBackground from './AmbientBackground';
 import SplashScreen from './SplashScreen';
-import AIGreeting from './AIGreeting';
 import HistorySheet from './HistorySheet';
 import Ripple from './Ripple';
 
@@ -225,8 +224,6 @@ function App() {
           <SplashScreen onFinish={() => setShowSplash(false)} />
         )}
       </AnimatePresence>
-
-
 
       <AnimatePresence>
         {showClearModal && (
