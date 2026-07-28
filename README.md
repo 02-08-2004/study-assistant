@@ -1,76 +1,99 @@
-# Study Assistant
+# 📚 Study Assistant — AI-Powered Learning Platform
 
-A study tool that takes free-form notes or a topic, sends it to an LLM, and turns
-the structured response into interactive flashcards or a quiz — with retest for
-wrong answers.
+[![GitHub Profile](https://img.shields.io/badge/GitHub-02--08--2004-105666?style=for-the-badge&logo=github)](https://github.com/02-08-2004)
+[![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8.1-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev)
+[![Express](https://img.shields.io/badge/Express-5.2-000000?style=for-the-badge&logo=express)](https://expressjs.com)
+[![Groq AI](https://img.shields.io/badge/Groq_AI-Llama_3.3_70B-F7F4D5?style=for-the-badge&logo=openai)](https://console.groq.com)
 
-## Setup
+A high-density, SaaS-inspired interactive study application designed with modern desktop aesthetics (**Linear, Notion, ChatGPT Desktop, Spotify**). Turn free-form notes or topics into interactive **3D Flashcards** or **Adaptive Quizzes** powered by Groq's Llama 3.3 70B model.
 
-**Requirements:** Node.js installed, a free Groq API key (https://console.groq.com).
+---
 
-**1. Backend**
+## ✨ Features
 
+- **⚡ Instant AI Material Generation**: Converts raw notes or topic prompts into structured flashcards or multiple-choice quizzes with automated schema validation and 3-tier retry logic.
+- **🃏 3D Interactive Flashcards**: Flip cards with smooth 3D perspective, progress tracking, and complete study controls.
+- **🎯 Unified Quiz Performance & Smart Retesting**: Single-card score metrics with 1-click **Retest Wrong Answers** workflow.
+- **🗂️ Persistent History Drawer**: LocalStorage session library with slide-in drawer access and unfinished session prompt intercepts.
+- **🎨 Glassmorphism & Micro-animations**: Ambient floating gradient blobs, spring physics transitions (Framer Motion), and tactile ripple effects.
+- **📱 100% Multi-Device Responsiveness**: Fluid scaling across mobile phones, foldables, tablets, laptops, and ultra-wide displays.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19, Vite, Framer Motion, Vanilla CSS (Design Tokens, Glassmorphism, Responsive Media Queries)
+- **Backend**: Express.js, Node.js, CORS, Dotenv
+- **AI Engine**: Groq API (`llama-3.3-70b-versatile`)
+- **State & Storage**: Browser `localStorage` with full state persistence
+
+---
+
+## 🚀 How to Run Locally
+
+### Prerequisites
+- [Node.js](https://nodejs.org) (v18 or higher)
+- Free [Groq API Key](https://console.groq.com)
+
+---
+
+### Step 1: Clone Repository
+```bash
+git clone https://github.com/02-08-2004/study-assistant.git
+cd study-assistant
+```
+
+---
+
+### Step 2: Configure Backend
+```bash
 cd backend
 npm install
+```
 
-Create a `.env` file in `backend/` with:
+Create a `.env` file inside the `backend/` directory:
+```env
+GROQ_API_KEY=your_groq_api_key_here
+PORT=5000
+```
 
-GROQ_API_KEY=your_key_here
-
-Run the backend:
-
+Start the backend server:
+```bash
 npm run dev
+```
+*(Runs on `http://localhost:5000`)*
 
-Backend runs on http://localhost:5000
+---
 
-**2. Frontend**
-
+### Step 3: Configure Frontend
+In a **new terminal tab**:
+```bash
 cd frontend
 npm install
 npm run dev
+```
+*(Runs on `http://localhost:5173`)*
 
-Frontend runs on http://localhost:5173
+Open **http://localhost:5173** in your browser.
 
-Open http://localhost:5173 in your browser. Both servers must be running
-at the same time (use two terminal tabs).
+---
 
-## How it works
+## 🌐 Production Deployment (Vercel)
 
-- User pastes notes/topic into a textarea and picks Flashcards or Quiz.
-- Frontend sends a POST request to the backend (`/api/generate`) — the API key
-  never touches the browser.
-- Backend prompts Groq (llama-3.3-70b-versatile) with a strict system prompt
-  that forces a specific JSON schema.
-- Backend parses and validates the model's response before sending it to the
-  frontend. If parsing/validation fails, it retries the model call automatically
-  (up to 3 attempts) before returning a clean error.
-- Frontend renders the validated JSON as real interactive React components —
-  never shown as raw chat text.
-- A request-ID guard on the frontend discards stale responses if the user
-  submits a new request before an older one finishes.
+The repository is pre-configured with `vercel.json` for 1-click monorepo deployment:
 
-## AI usage note
+### 1-Click Vercel Import:
+1. Go to [vercel.com/new](https://vercel.com/new) and import `02-08-2004/study-assistant`.
+2. Add Environment Variable:
+   - `GROQ_API_KEY`: `your_groq_api_key`
+3. Click **Deploy**. Both Frontend and Backend services build automatically under a single URL!
 
-I used Claude to help me plan the architecture, write the Express backend
-(prompt design, JSON validation, retry logic), and structure the React
-components (Flashcards, Quiz, state management for the retest flow). I wrote
-this note myself and understand every part of the code — I can walk through
-and explain the request flow, the schema validation logic, and the
-stale-response guard.
+---
 
-## Known limitations
+## 👤 Author
 
-- Retry logic gives up after 3 failed attempts and shows an error instead of
-  a partial result.
-- Quiz options are always fixed at 4 choices (matches the enforced schema).
-- No persistence yet — refreshing the page loses the current session
-  (see stretch goals).
-- [add more here as you find them during testing]
+Developed with ❤️ by **[Sowjanya](https://github.com/02-08-2004)**
 
-## Time spent
-
-- Backend (Express, prompt design, validation, retry): __ hrs
-- Frontend (form, Flashcards, Quiz, race condition fix): __ hrs
-- Styling / mobile polish: __ hrs
-- README / testing / recording demo: __ hrs
-- **Total: __ hrs**
+- **GitHub**: [https://github.com/02-08-2004](https://github.com/02-08-2004)
+- **Repository**: [https://github.com/02-08-2004/study-assistant](https://github.com/02-08-2004/study-assistant)
