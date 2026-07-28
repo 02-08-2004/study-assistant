@@ -353,7 +353,7 @@ function App() {
                       placeholder='Paste your notes, or just name a topic — e.g. "Photosynthesis"...'
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      rows={windowWidth <= 480 ? 5 : windowWidth <= 768 ? 6 : 9}
+                      rows={windowWidth <= 480 ? 7 : windowWidth <= 768 ? 8 : 12}
                     />
 
                     <motion.button
